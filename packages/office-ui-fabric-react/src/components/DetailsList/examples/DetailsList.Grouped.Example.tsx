@@ -4,6 +4,7 @@ import * as React from 'react';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
+import { AnchoredRangeSelection } from 'office-ui-fabric-react/lib/Selection';
 
 let _columns = [
   {
@@ -93,6 +94,7 @@ export class DetailsListGroupedExample extends React.Component<any, any> {
           groupProps={ {
             showEmptyGroups: true
           } }
+          selection={ new AnchoredRangeSelection() }
         />
       </Fabric>
     );
