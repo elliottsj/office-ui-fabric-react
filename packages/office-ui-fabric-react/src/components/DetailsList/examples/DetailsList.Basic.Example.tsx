@@ -70,19 +70,17 @@ export class DetailsListBasicExample extends React.Component<any, any> {
           label='Filter by name:'
           onChanged={ text => this.setState({ items: text ? _items.filter(i => i.name.toLowerCase().indexOf(text) > -1) : _items }) }
         />
-        <MarqueeSelection selection={ this._selection }>
-          <DetailsList
-            items={ items }
-            columns={ _columns }
-            setKey='set'
-            layoutMode={ DetailsListLayoutMode.fixedColumns }
-            selection={ this._selection }
-            selectionPreservedOnEmptyClick={ true }
-            ariaLabelForSelectionColumn='Toggle selection'
-            ariaLabelForSelectAllCheckbox='Toggle selection for all items'
-            onItemInvoked={ (item) => alert(`Item invoked: ${item.name}`) }
-          />
-        </MarqueeSelection>
+        <DetailsList
+          items={ items }
+          columns={ _columns }
+          setKey='set'
+          layoutMode={ DetailsListLayoutMode.fixedColumns }
+          selection={ this._selection }
+          selectionPreservedOnEmptyClick={ true }
+          ariaLabelForSelectionColumn='Toggle selection'
+          ariaLabelForSelectAllCheckbox='Toggle selection for all items'
+          onItemInvoked={ (item) => alert(`Item invoked: ${item.name}`) }
+        />
       </div>
     );
   }

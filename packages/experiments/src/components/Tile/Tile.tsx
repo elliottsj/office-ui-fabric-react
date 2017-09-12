@@ -108,7 +108,7 @@ export class Tile extends BaseComponent<ITileProps, ITileState> {
     } = this.props;
 
     if (selection) {
-      this._events.on(selection, SELECTION_CHANGE, this._onSelectionChange);
+      selection.on(SELECTION_CHANGE, this._onSelectionChange);
     }
   }
 

@@ -145,6 +145,7 @@ export class GroupedListSection extends BaseComponent<IGroupedListSectionProps, 
     }
 
     if (selection) {
+      selection.on(this._events, SELECTION_CHANGE, this._onSelectionChange);
       this._events.on(selection, SELECTION_CHANGE, this._onSelectionChange);
     }
   }
