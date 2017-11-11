@@ -17,6 +17,7 @@ import {
   ColumnActionsMode,
   ConstrainMode,
   DetailsListLayoutMode,
+  HoverMode,
   IColumn,
   IDetailsList,
   IDetailsListProps,
@@ -242,7 +243,8 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
       getKey,
       listProps,
       usePageCache,
-      onShouldVirtualize
+      onShouldVirtualize,
+      hoverMode = HoverMode.normal
     } = this.props;
     let {
       adjustedColumns,
@@ -333,7 +335,10 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
           <div onKeyDown={ this._onContentKeyDown } role='presentation'>
             <FocusZone
               ref={ this._resolveRef('_focusZone') }
-              className={ styles.focusZone }
+              className={ css(
+                styles.focusZone,
+                (hoverMode === HoverMode.above) && 'ms-DetailsList--HoverAbove',
+              ) }
               direction={ FocusZoneDirection.vertical }
               isInnerZoneKeystroke={ isRightArrow }
               onActiveElementChanged={ this._onActiveRowChanged }

@@ -210,6 +210,12 @@ export interface IDetailsListProps extends React.Props<DetailsList>, IWithViewpo
    * Whether or not the selection zone should enter modal state on touch.
    */
   enterModalSelectionOnTouch?: boolean;
+
+  /**
+   * How to style rows when the cursor is hovering over a row.
+   * @default HoverMode.normal
+   */
+  hoverMode?: HoverMode;
 }
 
 export interface IColumn {
@@ -409,4 +415,16 @@ export enum CheckboxVisibility {
    * Hide checkboxes.
    */
   hidden = 2
+}
+
+export enum HoverMode {
+  /**
+   * Apply hover styles only to the row below the cursor.
+   */
+  normal = 0,
+
+  /**
+   * Apply hover styles to all rows at and above the cursor.
+   */
+  above = 1
 }
