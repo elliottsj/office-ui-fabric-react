@@ -56,6 +56,8 @@ export interface ISelection {
   toggleKeySelected(key: string): void;
   toggleIndexSelected(index: number): void;
   toggleRangeSelected(fromIndex: number, count: number): void;
+
+  isIndexPendingSelection(index: number, indexPendingSelection: number): boolean;
 }
 
 export interface ISelectionLayout {

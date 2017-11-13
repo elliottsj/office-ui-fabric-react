@@ -52,6 +52,9 @@ export interface IDetailsRowProps extends React.Props<DetailsRow> {
   checkButtonAriaLabel?: string;
   checkboxCellClassName?: string;
   className?: string;
+  isHovered?: boolean;
+  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 export interface IDetailsRowSelectionState {
@@ -190,6 +193,7 @@ export class DetailsRow extends BaseComponent<IDetailsRowProps, IDetailsRowState
       checkButtonAriaLabel,
       checkboxCellClassName,
       selection,
+      isHovered,
     } = this.props;
     const { columnMeasureInfo, isDropping, groupNestingDepth } = this.state;
     const { isSelected = false, isSelectionModal = false } = this.state.selectionState as IDetailsRowSelectionState;
@@ -219,7 +223,8 @@ export class DetailsRow extends BaseComponent<IDetailsRowProps, IDetailsRowState
             [`is-contentUnselectable ${styles.rootIsContentUnselectable}`]: isContentUnselectable,
             [`is-selected ${checkStyles.isSelected} ${styles.rootIsSelected}`]: isSelected,
             [`${styles.anySelected} ${checkStyles.anySelected}`]: isSelectionModal,
-            [`is-check-visible ${checkStyles.isVisible}`]: checkboxVisibility === CheckboxVisibility.always
+            [`is-check-visible ${checkStyles.isVisible}`]: checkboxVisibility === CheckboxVisibility.always,
+            [styles.rootIsHovered]: isHovered,
           }) }
         data-is-focusable={ true }
         data-selection-index={ itemIndex }

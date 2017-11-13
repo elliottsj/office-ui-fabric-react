@@ -49,6 +49,8 @@ export interface IDetailsListState {
   isSizing?: boolean;
   isDropping?: boolean;
   isSomeGroupExpanded?: boolean;
+  hoveredIndex: number;
+  _onRenderListCell: (item?: any, index?: number) => React.ReactNode;
 }
 
 const MIN_COLUMN_WIDTH = 100; // this is the global min width
@@ -107,6 +109,8 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
     this._onGroupExpandStateChanged = this._onGroupExpandStateChanged.bind(this);
 
     this.state = {
+      _onRenderListCell: () => <div></div>,
+      hoveredIndex: -1,
       focusedItemIndex: -1,
       lastWidth: 0,
       adjustedColumns: this._getAdjustedColumns(props),
@@ -250,7 +254,8 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
       adjustedColumns,
       isCollapsed,
       isSizing,
-      isSomeGroupExpanded
+      isSomeGroupExpanded,
+      _onRenderListCell,
     } = this.state;
     let {
       _selection: selection,
@@ -343,6 +348,12 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
               isInnerZoneKeystroke={ isRightArrow }
               onActiveElementChanged={ this._onActiveRowChanged }
               onBlur={ this._onBlur }
+              onMouseLeave={ () => {
+                this.setState({
+                  hoveredIndex: -1,
+                  _onRenderListCell: this._onRenderListCell.bind(this)(0),
+                });
+              } }
             >
               <SelectionZone
                 ref={ this._resolveRef('_selectionZone') }
@@ -375,7 +386,7 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
                       ref={ this._resolveRef('_list') }
                       role='presentation'
                       items={ items }
-                      onRenderCell={ this._onRenderListCell(0) }
+                      onRenderCell={ _onRenderListCell }
                       usePageCache={ usePageCache }
                       onShouldVirtualize={ onShouldVirtualize }
                       { ...additionalListProps }
@@ -406,8 +417,7 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
   }
 
   @autobind
-  private _onRenderListCell(nestingDepth: number)
-    : (item: any, itemIndex: number) => React.ReactNode {
+  private _onRenderListCell(nestingDepth: number): (item: any, itemIndex: number) => React.ReactNode {
     return (item: any, itemIndex: number): React.ReactNode => {
       return this._onRenderCell(nestingDepth, item, itemIndex as number);
     };
@@ -433,7 +443,8 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
     let selection = this._selection;
     let dragDropHelper = this._dragDropHelper;
     let {
-      adjustedColumns: columns
+      adjustedColumns: columns,
+      hoveredIndex,
     } = this.state;
 
     if (!item) {
@@ -464,6 +475,13 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
       getRowAriaLabel: getRowAriaLabel,
       checkButtonAriaLabel: checkButtonAriaLabel,
       checkboxCellClassName: checkboxCellClassName,
+      isHovered: selection.isIndexPendingSelection(index, hoveredIndex),
+      onMouseEnter: () => {
+        this.setState({
+          hoveredIndex: index,
+          _onRenderListCell: this._onRenderListCell.bind(this)(0),
+        });
+      },
     }, this._onRenderRow);
   }
 

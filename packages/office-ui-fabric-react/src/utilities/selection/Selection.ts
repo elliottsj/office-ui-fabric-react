@@ -410,6 +410,10 @@ export class Selection implements ISelection {
     this.setChangeEvents(true);
   }
 
+  public isIndexPendingSelection(index: number, indexPendingSelection: number): boolean {
+    return index === indexPendingSelection;
+  }
+
   private _updateCount(): void {
     const count = this.getSelectedCount();
 

@@ -264,7 +264,8 @@ export class List extends BaseComponent<IListProps, IListState> implements IList
   public componentWillReceiveProps(newProps: IListProps) {
     if (newProps.items !== this.props.items ||
       newProps.renderCount !== this.props.renderCount ||
-      newProps.startIndex !== this.props.startIndex) {
+      newProps.startIndex !== this.props.startIndex ||
+      newProps.onRenderCell !== this.props.onRenderCell) {
 
       // We have received new items so we want to make sure that initially we only render a single window to
       // fill the currently visible rect, and then later render additional windows.
@@ -278,6 +279,10 @@ export class List extends BaseComponent<IListProps, IListState> implements IList
   }
 
   public shouldComponentUpdate(newProps: IListProps, newState: IListState) {
+    if (newProps.onRenderCell !== this.props.onRenderCell) {
+      return true;
+    }
+
     let { pages: oldPages } = this.state;
     let { pages: newPages } = newState;
     let shouldComponentUpdate = false;
