@@ -7,7 +7,8 @@ export const SELECTION_CHANGE = 'change';
 export enum SelectionMode {
   none = 0,
   single = 1,
-  multiple = 2
+  multiple = 2,
+  above = 3
 }
 
 export interface ISelection {

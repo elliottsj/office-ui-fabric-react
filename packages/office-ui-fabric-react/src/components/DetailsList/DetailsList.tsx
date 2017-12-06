@@ -248,7 +248,7 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
       listProps,
       usePageCache,
       onShouldVirtualize,
-      hoverMode = HoverMode.normal
+      selectionMode = HoverMode.normal
     } = this.props;
     let {
       adjustedColumns,
@@ -291,6 +291,7 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
     } = this.props;
 
     return (
+      <Selectable>{}
       // If shouldApplyApplicationRole is true, role application will be applied to make arrow keys work
       // with JAWS.
       <div
@@ -342,7 +343,7 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
               ref={ this._resolveRef('_focusZone') }
               className={ css(
                 styles.focusZone,
-                (hoverMode === HoverMode.above) && 'ms-DetailsList--HoverAbove',
+                (selectionMode === HoverMode.above) && 'ms-DetailsList--HoverAbove',
               ) }
               direction={ FocusZoneDirection.vertical }
               isInnerZoneKeystroke={ isRightArrow }
