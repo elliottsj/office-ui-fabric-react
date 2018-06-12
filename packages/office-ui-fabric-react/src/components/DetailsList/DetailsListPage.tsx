@@ -30,6 +30,9 @@ const DetailsListAdvancedExampleCode = require('!raw-loader!office-ui-fabric-rea
 import { DetailsListGroupedExample } from './examples/DetailsList.Grouped.Example';
 const DetailsListGroupedExampleCode = require('!raw-loader!office-ui-fabric-react/src/components/DetailsList/examples/DetailsList.Grouped.Example.tsx') as string;
 
+import { DetailsListGroupedLargeExample } from './examples/DetailsList.Grouped.Large.Example';
+const DetailsListGroupedLargeExampleCode = require('!raw-loader!office-ui-fabric-react/src/components/DetailsList/examples/DetailsList.Grouped.Large.Example.tsx') as string;
+
 import { DetailsListDragDropExample } from './examples/DetailsList.DragDrop.Example';
 const DetailsListDragDropExampleCode = require('!raw-loader!office-ui-fabric-react/src/components/DetailsList/examples/DetailsList.DragDrop.Example.tsx') as string;
 
@@ -59,6 +62,9 @@ export class DetailsListPage extends React.Component<IComponentDemoPageProps, {}
             </ExampleCard>
             <ExampleCard title='Simple Grouped DetailsList' isOptIn={ true } code={ DetailsListGroupedExampleCode }>
               <DetailsListGroupedExample />
+            </ExampleCard>
+            <ExampleCard title='Large Grouped DetailsList' isOptIn={ true } code={ DetailsListGroupedLargeExampleCode }>
+              <DetailsListGroupedLargeExample />
             </ExampleCard>
             <ExampleCard title='Rendering custom item columns with sorting' isOptIn={ true } code={ DetailsListCustomColumnsExampleCode }>
               <DetailsListCustomColumnsExample />
