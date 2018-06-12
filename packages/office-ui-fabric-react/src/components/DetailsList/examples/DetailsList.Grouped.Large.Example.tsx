@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { BaseComponent, createRef } from 'office-ui-fabric-react/lib/Utilities';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import { IDetailsList, DetailsList, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
+import { IDetailsList, DetailsList, IColumn, IGroup } from 'office-ui-fabric-react/lib/DetailsList';
+
+const GROUP_HEADER_HEIGHT = 40;
+const GROUP_ITEM_HEIGHT = 43;
 
 const _columns: IColumn[] = [
   {
@@ -44,16 +47,21 @@ export class DetailsListGroupedLargeExample extends BaseComponent<{}, { items: {
 
   public render() {
     return (
-      <Fabric className="DetailsList-grouped-large-example">
+      <Fabric className='DetailsList-grouped-large-example'>
         <DetailsList
           componentRef={this._root}
           items={_items}
           groups={_groups}
           columns={_columns}
-          ariaLabelForSelectAllCheckbox="Toggle selection for all items"
-          ariaLabelForSelectionColumn="Toggle selection"
+          getGroupHeight={this._getGroupHeight}
+          ariaLabelForSelectAllCheckbox='Toggle selection for all items'
+          ariaLabelForSelectionColumn='Toggle selection'
         />
       </Fabric>
     );
+  }
+
+  private _getGroupHeight = (group: IGroup) => {
+    return GROUP_HEADER_HEIGHT + GROUP_ITEM_HEIGHT * group.count;
   }
 }
