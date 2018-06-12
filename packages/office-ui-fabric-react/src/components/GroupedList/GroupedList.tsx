@@ -87,7 +87,8 @@ export class GroupedList extends BaseComponent<IGroupedListProps, IGroupedListSt
     const {
       className,
       usePageCache,
-      onShouldVirtualize
+      onShouldVirtualize,
+      getGroupHeight
     } = this.props;
     const {
       groups
@@ -107,6 +108,7 @@ export class GroupedList extends BaseComponent<IGroupedListProps, IGroupedListSt
               items={ groups }
               onRenderCell={ this._renderGroup }
               getItemCountForPage={ this._returnOne }
+              getPageHeight={getGroupHeight && this._getPageHeight}
               getPageSpecification={ this._getPageSpecification }
               usePageCache={ usePageCache }
               onShouldVirtualize={ onShouldVirtualize }
@@ -203,6 +205,20 @@ export class GroupedList extends BaseComponent<IGroupedListProps, IGroupedListSt
 
   private _returnOne(): number {
     return 1;
+  }
+
+  private _getPageHeight = (itemIndex: number) => {
+    const { getGroupHeight } = this.props;
+    const { groups } = this.state;
+
+    const pageGroup = groups && groups[itemIndex];
+    if (getGroupHeight && pageGroup) {
+      return getGroupHeight(pageGroup, itemIndex);
+    }
+
+    // This should not happen since `groups[itemIndex]` should always exist, and
+    // `_getPageHeight` is only called if `props.getGroupHeight` exists.
+    return 0;
   }
 
   private _getGroupKey(group: IGroup, index: number): string {

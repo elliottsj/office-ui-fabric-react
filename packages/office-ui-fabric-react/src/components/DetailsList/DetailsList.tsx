@@ -286,7 +286,8 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
       listProps,
       usePageCache,
       onShouldVirtualize,
-      enableShimmer
+      enableShimmer,
+      getGroupHeight
     } = this.props;
     const {
       adjustedColumns,
@@ -411,6 +412,7 @@ export class DetailsList extends BaseComponent<IDetailsListProps, IDetailsListSt
                     onGroupExpandStateChanged={ this._onGroupExpandStateChanged }
                     usePageCache={ usePageCache }
                     onShouldVirtualize={ onShouldVirtualize }
+                    getGroupHeight={getGroupHeight}
                   />
                 ) : (
                     <List
